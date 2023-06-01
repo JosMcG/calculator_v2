@@ -1,0 +1,10 @@
+#pos-neg {
+  background-color: rgb(248, 156, 86); 
+  border-top: 1px solid rgb(208, 208, 208);
+  border-left: 1px solid rgb(208, 208, 208);
+  border-right: 2px solid rgb(143, 81, 33);
+  border-bottom: 2px solid rgb(143, 81, 33);
+  width: 57px;
+  height: 46px;
+  margin-left: 10px;
+}

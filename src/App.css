@@ -1,0 +1,45 @@
+#root {
+  margin: auto;
+}
+.app {
+  padding: 5px 10px 10px 10px;
+  background-color: black;
+  border-top: 4px solid rgb(120, 120, 120);
+  border-left: 4px solid rgb(120, 120, 120);
+  border-right: 4px solid rgb(70, 70, 70);
+  border-bottom: 4px solid rgb(70, 70, 70);
+  border-radius: 10px;
+  width: 270px;
+}
+
+#light-border {
+  border-top: 2px solid rgb(230, 230, 230);
+  border-left: 2px solid rgb(230, 230, 230);
+  border-right: 2px solid rgb(205, 205, 205);
+  border-bottom: 2px solid rgb(205, 205, 205);
+  border-radius: 7px;
+  margin: -5px -10px -10px -10px;
+  box-shadow: 1px 1px 4px whitesmoke;
+}
+
+#inset-border {
+  border-top: 2px solid rgb(70, 70, 70);
+  border-left: 2px solid rgb(70, 70, 70);
+  border-right: 2px solid rgb(70, 70, 70);
+  border-bottom: 2px solid rgb(70, 70, 70);
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 4px rgb(100, 100, 100);
+}
+
+#clear-nums {
+  display: grid;
+  gap: 10px;
+}
+
+#all-buttons {
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr 0;
+  margin-left: 12px;
+  margin-bottom: 10px;
+}

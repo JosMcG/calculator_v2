@@ -1,0 +1,29 @@
+#one {grid-area: one;}
+#two {grid-area: two;}
+#three {grid-area: three;}
+#four {grid-area: four;}
+#five {grid-area: five;}
+#six {grid-area: six;}
+#seven {grid-area: seven;}
+#eight {grid-area: eight;}
+#nine {grid-area: nine;}
+#zero {grid-area: zero;}
+#decimal {grid-area: dec;}
+
+.num-pad-buttons {
+  display: grid;
+  gap: 10px;
+  grid-template: 
+    "seven eight nine"
+    "four five six"
+    "one two three"
+    "zero zero dec";
+}
+
+.num-pad-buttons > Button {
+  background-color: rgb(150, 150, 150);
+  border-top: 1px solid rgb(208, 208, 208);
+  border-left: 1px solid rgb(208, 208, 208);
+  border-right: 2px solid rgb(95, 95, 95);
+  border-bottom: 2px solid rgb(95, 95, 95);
+}

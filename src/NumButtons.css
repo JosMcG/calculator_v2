@@ -25,5 +25,9 @@
   border-top: 1px solid rgb(208, 208, 208);
   border-left: 1px solid rgb(208, 208, 208);
   border-right: 2px solid rgb(95, 95, 95);
-  border-bottom: 2px solid rgb(95, 95, 95);
+  border-bottom: 2px solid rgb(95, 95, 95); 
+}
+
+.num-pad-buttons > Button:hover {
+  border-color: #f8f8fb;
 }

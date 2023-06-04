@@ -1,0 +1,23 @@
+#top-bar {
+  background-color: #FF9E3D;
+  width: 100%;
+  color: white;
+  height: 115px;
+  border-bottom: 1px solid #854709;
+  box-shadow: 0 4px 2px -2px rgba(0,0,0,.2);
+  position: absolute;
+  top: 0;
+}
+
+#top-bar-text {
+  margin: 17px 0 0 125px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 425%;
+}
+
+#logo {
+  width: 90px;
+  position: absolute;
+  top: 0;
+  margin: 15px 0 0 20px;
+}

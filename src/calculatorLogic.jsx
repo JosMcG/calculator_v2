@@ -18,8 +18,9 @@ export const handleClick = (buttonObj, display, setDisplay, equation, setEquatio
       break;
     case 'pos-neg':
       let switchSign = changeSign(display, displayValue);
+      //replace last number in equation to number displayed after the sign changed
+      setEquation(equation.slice(0, equation.length - display.length) + switchSign); 
       setDisplay(switchSign);
-      setEquation(equation.slice(0, -1) + switchSign);   //replace last number in equation to number with opposite sign
       break;
     case 'equals':
       setDisplay(calculate(equation));
@@ -50,15 +51,19 @@ displaying ERROR if clicked multiple times or divide by zero*/
 export const calculate = (equation) => {
   let equationStr = equation;
 
+  //if equals is clicked numerous times after evaluating the equation, display a 0
   if (equationStr === ''){
     return '0';
   }
 
+  //if an operator is clicked immediately prior to equals, remove the operator
   if (isOperator.test(equation[equation.length - 1])) {
     equationStr = equation.slice(0, -1);
   }
+
+  //evaluate the equation
   let answer = evaluate(equationStr);
-  answer = format(answer, {precision: 16});  //hides round-off errors with floats
+  answer = format(answer, {precision: 15});  //hides round-off errors with floats
   
   if (answer === Infinity) {
     return "ERROR";
@@ -110,7 +115,9 @@ const handleDecimalClick = (displayValue, display, setDisplay, equation) => {
   //do not allow for multiple decimals in a number
   if (!display.includes(displayValue)) { 
     setDisplay(display + displayValue);
-    return equationStr = equationStr + displayValue;
+    return equationStr = equationStr + displayValue;  //add the decimal if the number does not already contain one
+  } else {
+    return equationStr;   //return the current number in equation if the number already has a decimal,
+                          //enabling the user to continue adding digits
   }
-
 }

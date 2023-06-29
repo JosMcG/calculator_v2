@@ -18,7 +18,7 @@ export const data = [
   {action: "operator",
     displayValue: "+",
     equationValue: "+",
-    id: "addition"},
+    id: "add"},
   {action: "operator",
     displayValue: "-",
     equationValue: "-",

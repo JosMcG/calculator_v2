@@ -17,14 +17,24 @@ export const handleClick = (buttonObj, display, setDisplay, equation, setEquatio
       setDisplay('0');
       break;
     case 'pos-neg':
-      let switchSign = changeSign(display, displayValue);
-      //replace last number in equation to number displayed after the sign changed
-      setEquation(equation.slice(0, equation.length - display.length) + switchSign); 
-      setDisplay(switchSign);
+      let switchSign = changeSign(display, equation);  //calls function that returns the number with the opposite sign
+
+      //If pos/neg is clicked immediately after an operator, add '-0' to the equation
+      if(switchSign === '-0'){
+        setEquation(equation + switchSign);
+      }else {
+      //Replace last number in equation to number displayed after the sign changed
+      setEquation(equation.slice(0, equation.length - display.length) + switchSign);
+      }
+      //Displays the number with the opposite sign
+      setDisplay(switchSign);   
       break;
+    
     case 'equals':
-      setDisplay(calculate(equation));
-      setEquation('');
+      let ans = calculate(equation);
+      setDisplay(ans);
+      setEquation(ans);
+      console.log(display)
       break;
     case 'num':
       setEquation(handleNumberClick(displayValue, display, setDisplay, equation));
@@ -73,51 +83,58 @@ export const calculate = (equation) => {
 };
 
 //change the sign of the displayed number
-export const changeSign = (display) => {
-  if (/\d/.test(display)) {
-    let num = display;
-    if (num > 0) {
-      return (0 - num).toString();
+export const changeSign = (display, equation) => {
+  /* If pos/neg is clicked first, when the display is zero, 
+  or immediately after an operator, return '-0' */
+  if (display === '0' || (isOperator.test(equation[equation.length - 1]))){
+    return "-0";
+  }else {
+    if (display > 0) {
+      return (0 - display).toString();    //Return the negative of a positive number
     } else {
-      return abs(num).toString();
+      return abs(display).toString();     //Return the positive of a negative number
     }
   }
 };
 
 const handleNumberClick = (displayValue, display, setDisplay, equation) => {
 
-  let equationStr = equation;
-
   //display a new number on initial click, after an operator click, or after equals click 
-  if (display === '0' || isOperator.test(equation[equation.length - 1]) || equationStr === ''){
+  if (display === '0' || isOperator.test(equation[equation.length - 1]) || equation === ''){
     setDisplay(displayValue)
+
+  /*if the pos/neg was clicked immediately after an operator, so to display '-0', 
+  remove the zero when subsequent numbers are clicked.
+  For the current caluclator, the extra 0 is not removed from equation. If the program is
+  changed to display the equation as it is entered, the '0' should be removed.*/
+} else if(display === '-0'){
+  setDisplay('-' + displayValue)
   } else {
     setDisplay(display + displayValue)
   }
 
   //Keep equation at 0 if 0 button is clicked sequentially
   if (displayValue === '0' && equation === '0') {
-    return equationStr;
+    return equation;
   } else {
-    return equationStr = equationStr + displayValue;
+    return equation + displayValue;
   }
 }
 
 const handleDecimalClick = (displayValue, display, setDisplay, equation) => {
 
-  let equationStr = equation;
 
   //if an operator is last clicked, reset the display
   if (isOperator.test(equation[equation.length - 1])){
     setDisplay('0' + displayValue)
-    return equationStr = equationStr + displayValue;
+    return equation + displayValue;
   }
   //do not allow for multiple decimals in a number
   if (!display.includes(displayValue)) { 
     setDisplay(display + displayValue);
-    return equationStr = equationStr + displayValue;  //add the decimal if the number does not already contain one
+    return equation + displayValue;  //add the decimal if the number does not already contain one
   } else {
-    return equationStr;   //return the current number in equation if the number already has a decimal,
+    return equation;   //return the current number in equation if the number already has a decimal,
                           //enabling the user to continue adding digits
   }
 }

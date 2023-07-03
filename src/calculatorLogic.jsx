@@ -10,7 +10,7 @@ export const handleClick = (buttonObj, display, setDisplay, equation, setEquatio
   //check for and handle operator, AC, or "=" click
   switch (action) {
     case 'operator':
-      setEquation(pushOperator(equation, equationValue));
+      setEquation(pushOperator(equation, equationValue, display));
       break;
     case 'clear':
       setEquation('');
@@ -33,8 +33,7 @@ export const handleClick = (buttonObj, display, setDisplay, equation, setEquatio
     case 'equals':
       let ans = calculate(equation);
       setDisplay(ans);
-      setEquation(ans);
-      console.log(display)
+      setEquation('');
       break;
     case 'num':
       setEquation(handleNumberClick(displayValue, display, setDisplay, equation));
@@ -48,23 +47,34 @@ export const handleClick = (buttonObj, display, setDisplay, equation, setEquatio
 /*If multiple operators are entered sequentially, only use the last entered.
 When an operator is entered, push the displayed numbers to the equation,
 along with the clicked operator. */
-export const pushOperator = (equation, equationValue) => {
-  if (isOperator.test(equation[equation.length - 1])) {
-    return equation.slice(0, -1) + equationValue;
-  } else {
-    return equation + equationValue;
+export const pushOperator = (equation, equationValue, display) => {
+  if (equation == '' && display != '0'){
+    return display + equationValue;
   }
+  if (equationValue == '-'){
+    if (isOperator.test(equation[equation.length - 1]) && isOperator.test(equation[equation.length - 2])){
+      let n = equation[equation.length - 1];
+      return equation.slice(0, -2) + n + equationValue;
+     
+    } else {
+      return equation + equationValue;
+    }
+  }else if ((equation[equation.length - 1]) == '-'){
+    if (isOperator.test(equation[equation.length - 2])){
+      return equation.slice(0, -2) + equationValue;
+    } else {
+      return equation.slice(0, -1) + equationValue;
+    }
+  }else if (isOperator.test(equation[equation.length - 1])) {
+    return equation.slice(0, -1) + equationValue;
+  }
+  return equation + equationValue;
 };
 
 /*calculate the equation when "=" is clicked, 
 displaying ERROR if clicked multiple times or divide by zero*/
 export const calculate = (equation) => {
   let equationStr = equation;
-
-  //if equals is clicked numerous times after evaluating the equation, display a 0
-  if (equationStr === ''){
-    return '0';
-  }
 
   //if an operator is clicked immediately prior to equals, remove the operator
   if (isOperator.test(equation[equation.length - 1])) {

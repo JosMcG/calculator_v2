@@ -11,20 +11,20 @@ const Calculator = () => {
   const [equation, setEquation] = useState("");
 
  return (
-  <div id="calc"> 
-    <div id="light-border">
-      <div id="inset-border">
+  <div className="calc"> 
+    <div className="light-border">
+      <div className="inset-border">
         <Display display={display}/>
-        <div id="all-buttons">
-          <div id="clear-nums">
-            <div id="clear-pos-neg">
+        <div className="all-buttons">
+          <div className="clear-nums">
+            <div className="clear-pos-neg">
               <ClearButton setDisplay={setDisplay} display={display} 
                       equation={equation} setEquation={setEquation}/>
               <PosNegButton setDisplay={setDisplay} display={display} 
                       equation={equation} setEquation={setEquation}/>
             </div>
             <div>
-            <NumButtons id="nums-deci" setDisplay={setDisplay} display={display} 
+            <NumButtons className="nums-deci" setDisplay={setDisplay} display={display} 
                         equation={equation} setEquation={setEquation}/>
             </div>
           </div>
